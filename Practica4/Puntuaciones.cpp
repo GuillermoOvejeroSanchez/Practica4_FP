@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void ordenarRanking(tPuntuaciones& puntos, string nombre, int nuevosPuntos, int posicion); //Ordena el ranking por algoritmo de ordenacion
+void ordenacionInserccion(tPuntuaciones& puntos, string nombre, int nuevosPuntos, int posicion); //Ordena el ranking por algoritmo de ordenacion
 
 bool cargarPuntuaciones(tPuntuaciones& puntos) {
 
@@ -72,7 +72,7 @@ bool actualizarPuntuaciones(tPuntuaciones& puntos,const string& nombre, int nuev
 		puntos.ranking[i].puntuacion += nuevosPuntos;
 		nuevosPuntos = puntos.ranking[i].puntuacion;
 
-		ordenarRanking(puntos, nombre, nuevosPuntos, i);
+		ordenacionInserccion(puntos, nombre, nuevosPuntos, i);
 		actualizado = true;
 	}
 
@@ -84,7 +84,7 @@ bool actualizarPuntuaciones(tPuntuaciones& puntos,const string& nombre, int nuev
 		puntos.ranking[puntos.contador].nombre = nombre;
 		puntos.ranking[puntos.contador].puntuacion = nuevosPuntos;
 
-		ordenarRanking(puntos, nombre, nuevosPuntos, puntos.contador);
+		ordenacionInserccion(puntos, nombre, nuevosPuntos, puntos.contador);
 		puntos.contador++;
 		actualizado = true;
 	}
@@ -93,10 +93,13 @@ bool actualizarPuntuaciones(tPuntuaciones& puntos,const string& nombre, int nuev
 	return actualizado;
 }
 
-void ordenarRanking(tPuntuaciones& puntos, string nombre, int nuevosPuntos, int posicion) { //Algoritmo de ordenacion por insercion
+void ordenacionInserccion(tPuntuaciones& puntos, string nombre, int nuevosPuntos, int posicion) { //Algoritmo de ordenacion por insercion
 	tInfoJugador aux;
+	bool intercambio = false;
+	while (posicion > 0 && intercambio) {
 
-	while (posicion > 0 && nuevosPuntos > puntos.ranking[posicion - 1].puntuacion) {
+		intercambio = false;
+		if (nuevosPuntos > puntos.ranking[posicion - 1].puntuacion) {
 
 		//Intercambiar nuevo con posicion
 		aux = puntos.ranking[posicion - 1];
@@ -107,8 +110,12 @@ void ordenarRanking(tPuntuaciones& puntos, string nombre, int nuevosPuntos, int 
 		puntos.ranking[posicion] = aux;
 		posicion--;
 
+		intercambio = true;
+		}
+
 	}
 }
+
 
 void redimensionar(tPuntuaciones& clasificacion) {
 	tInfoJugador* old;
@@ -130,6 +137,35 @@ void liberar(tPuntuaciones & clasificacion) {
 
 
 void ordenAlfabetico(const tPuntuaciones & puntuaciones) {
+	bool intercambiar = true;
 
-	cout << "aaaaa";
+	tInfoJugador* alfabetico;
+	tInfoJugador aux;
+
+	alfabetico = new tInfoJugador[puntuaciones.tam];
+
+	for (int i = 0; i < puntuaciones.contador; i++)
+	{
+		alfabetico[i] = puntuaciones.ranking[i];
+	}
+
+	int i, j;
+	for (i = 0; i < puntuaciones.contador - 1; i++)
+		// Last i elements are already in place   
+		for (j = 0; j < puntuaciones.contador - i - 1; j++) {
+			if (alfabetico[j].nombre > alfabetico[j + 1].nombre) {
+				aux = alfabetico[j];
+				alfabetico[j] = alfabetico[j + 1];
+				alfabetico[j + 1] = aux;
+				intercambiar = true;
+			}
+		}
+
+
+	for (int i = 0; i < puntuaciones.contador; i++)
+	{
+		cout << alfabetico[i].nombre << " " << alfabetico[i].puntuacion << endl;
+	}
+	delete[] alfabetico;
+	system("pause");
 }
