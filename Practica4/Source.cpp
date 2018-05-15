@@ -1,3 +1,9 @@
+/*
+GRUPO 1B DE FP
+GUILLERMO OVEJERO SANCHEZ
+MARLON JONATHAN CAMPOVERDE M�NDEZ
+*/
+
 #include "checkML.h"
 #include <iostream>
 #include <ctime>
