@@ -136,6 +136,34 @@ void liberar(tPuntuaciones & clasificacion) {
 }
 
 
+void ordenarPredeterminado(tPuntuaciones& puntuaciones) {
+
+	bool intercambiar = true;
+	tInfoJugador aux;
+
+	int i, j;
+	for (i = 0; i < puntuaciones.contador - 1; i++)
+		// Last i elements are already in place   
+		for (j = 0; j < puntuaciones.contador - i - 1; j++) {
+			if (puntuaciones.ranking[j].nombre > puntuaciones.ranking[j + 1].nombre) {
+				aux = puntuaciones.ranking[j];
+				puntuaciones.ranking[j] = puntuaciones.ranking[j + 1];
+				puntuaciones.ranking[j + 1] = aux;
+				intercambiar = true;
+			}
+		}
+
+	for (i = 0; i < puntuaciones.contador - 1; i++)
+		// Last i elements are already in place   
+		for (j = 0; j < puntuaciones.contador - i - 1; j++) {
+			if (puntuaciones.ranking[j].puntuacion < puntuaciones.ranking[j + 1].puntuacion) {
+				aux = puntuaciones.ranking[j];
+				puntuaciones.ranking[j] = puntuaciones.ranking[j + 1];
+				puntuaciones.ranking[j + 1] = aux;
+				intercambiar = true;
+			}
+		}
+}
 void ordenAlfabetico(const tPuntuaciones & puntuaciones) {
 	bool intercambiar = true;
 

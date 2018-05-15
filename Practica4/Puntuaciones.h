@@ -25,4 +25,5 @@ bool actualizarPuntuaciones(tPuntuaciones & puntos,const std::string & nombre, i
 void redimensionar(tPuntuaciones & clasifiacion); //Aumenta en x2 el tama�o del array
 void liberar(tPuntuaciones & clasificacion); //Libera la memoria dinamica de la clasificacion
 void ordenAlfabetico(const tPuntuaciones & puntuaciones); //Muestra las puntuaciones por orden alfabetico
+void ordenarPredeterminado(tPuntuaciones& puntuaciones);
 #endif

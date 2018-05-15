@@ -1,9 +1,13 @@
 A 30
-F 14
 E 15
+F 14
 D 9
 G 8
 I 7
 C 6
 B 5
 H 4
+ababa 1
+bababab 1
+cacaca 1
+zazazazazaz 1

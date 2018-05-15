@@ -55,8 +55,12 @@ bool menu(tJuego& juego, tPuntuaciones& puntuaciones) {
 		std::cout << std::endl;
 		switch (opcion)
 		{
-		case '1': mostrarPuntuaciones(puntuaciones); break;
-		case '2':ordenAlfabetico(puntuaciones); break; //orden alfabetico
+		case '1':ordenarPredeterminado(puntuaciones);
+			mostrarPuntuaciones(puntuaciones);
+			break;
+		case '2':
+			ordenAlfabetico(puntuaciones);
+			break; //orden alfabetico
 		}
 
 		break;
