@@ -1,0 +1,19 @@
+
+*************************************************************************************
+**                                     REGLAS                                      **
+** 1. El juego consiste en llegar a las joyas. Asi son las joyas --> (00)          **
+** 2. El mapa esta compuesto de diferentes obstaculos                              **
+** 3. Para evitarlos tenemos diferentes tipos de cartas                            **
+** 4. En nuestro turno podemos ejecutar dos acciones: Robar o Secuencia de Cartas  **
+*************************************************************************************
+**                                   OBSTACULOS                                    **
+** 2.1. CAJAS [] --> Las cajas pueden ser empujadas                                **
+** 2.2 MUROS  || --> Los muros no pueden moverse                                   **
+** 2.3. HIELO ** --> Los hielos pueden derretirse                                  **
+*************************************************************************************
+**                                     CARTAS                                      **
+** 3.1. Avanzar: Permite avanzar una casilla en la direccion en la que miras (^)   **
+** 3.2. Giro Derecha: Giras tu tortuga a la derecha (>)                            **
+** 3.3. Giro Izquierda: Gira tu tortuga a la izquierda (<)                         **
+** 3.4. Laser: Derrite los hielos y empuja a las tortugas (~)                      **
+*************************************************************************************
