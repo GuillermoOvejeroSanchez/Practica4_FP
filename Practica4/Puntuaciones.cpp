@@ -1,6 +1,7 @@
 #include "checkML.h"
 #include "Puntuaciones.h"
 #include <fstream>
+#include<algorithm>
 #include <iostream>
 
 using namespace std;
@@ -142,9 +143,9 @@ void ordenarPredeterminado(tPuntuaciones& puntuaciones) {
 	tInfoJugador aux;
 
 	int i, j;
-	for (i = 0; i < puntuaciones.contador - 1; i++)
-		// Last i elements are already in place   
+	for (i = 0; i < puntuaciones.contador - 1; i++)   
 		for (j = 0; j < puntuaciones.contador - i - 1; j++) {
+			//Sobrecargar operador < y poner los nombres en mayusculas
 			if (puntuaciones.ranking[j].nombre > puntuaciones.ranking[j + 1].nombre) {
 				aux = puntuaciones.ranking[j];
 				puntuaciones.ranking[j] = puntuaciones.ranking[j + 1];
@@ -153,8 +154,7 @@ void ordenarPredeterminado(tPuntuaciones& puntuaciones) {
 			}
 		}
 
-	for (i = 0; i < puntuaciones.contador - 1; i++)
-		// Last i elements are already in place   
+	for (i = 0; i < puntuaciones.contador - 1; i++)   
 		for (j = 0; j < puntuaciones.contador - i - 1; j++) {
 			if (puntuaciones.ranking[j].puntuacion < puntuaciones.ranking[j + 1].puntuacion) {
 				aux = puntuaciones.ranking[j];
@@ -166,22 +166,21 @@ void ordenarPredeterminado(tPuntuaciones& puntuaciones) {
 }
 void ordenAlfabetico(const tPuntuaciones & puntuaciones) {
 	bool intercambiar = true;
+	//int i, j;
 
-	tInfoJugador* alfabetico;
-	tInfoJugador aux;
+	tInfoJugador** alfabetico;
+	tInfoJugador* aux;
 
-	alfabetico = new tInfoJugador[puntuaciones.tam];
+	alfabetico = new tInfoJugador*[puntuaciones.tam];
 
 	for (int i = 0; i < puntuaciones.contador; i++)
 	{
-		alfabetico[i] = puntuaciones.ranking[i];
+		alfabetico[i] = &puntuaciones.ranking[i];
 	}
 
-	int i, j;
-	for (i = 0; i < puntuaciones.contador - 1; i++)
-		// Last i elements are already in place   
-		for (j = 0; j < puntuaciones.contador - i - 1; j++) {
-			if (alfabetico[j].nombre > alfabetico[j + 1].nombre) {
+	for (int i = 0; i < puntuaciones.contador - 1; i++)
+		for (int j = 0; j < puntuaciones.contador - i - 1; j++) {
+			if (alfabetico[j]->nombre > alfabetico[j + 1]->nombre) {
 				aux = alfabetico[j];
 				alfabetico[j] = alfabetico[j + 1];
 				alfabetico[j + 1] = aux;
@@ -189,10 +188,10 @@ void ordenAlfabetico(const tPuntuaciones & puntuaciones) {
 			}
 		}
 
-
+	
 	for (int i = 0; i < puntuaciones.contador; i++)
 	{
-		cout << alfabetico[i].nombre << " " << alfabetico[i].puntuacion << endl;
+		cout << alfabetico[i]->nombre << " " << alfabetico[i]->puntuacion << endl;
 	}
 	delete[] alfabetico;
 	system("pause");

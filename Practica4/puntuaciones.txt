@@ -7,6 +7,8 @@ I 7
 C 6
 B 5
 H 4
+e34 4
+3th 3
 ababa 1
 bababab 1
 cacaca 1

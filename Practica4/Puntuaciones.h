@@ -22,8 +22,8 @@ bool cargarPuntuaciones(tPuntuaciones &puntos); //Carga las puntuaciones de un a
 void guardarPuntuaciones(const tPuntuaciones &puntos);  //Guarda las puntuaciones (del array a un txt) al salir del juego
 void mostrarPuntuaciones(const tPuntuaciones &puntos); //Muestra las puntuaciones por pantalla
 bool actualizarPuntuaciones(tPuntuaciones & puntos,const std::string & nombre, int nuevosPuntos); //Actualiza las puntuaciones nuevas y ordena el ranking
-void redimensionar(tPuntuaciones & clasifiacion); //Aumenta en x2 el tama�o del array
+void redimensionar(tPuntuaciones & clasifiacion); //Aumenta en x2 la capacidad del array
 void liberar(tPuntuaciones & clasificacion); //Libera la memoria dinamica de la clasificacion
-void ordenAlfabetico(const tPuntuaciones & puntuaciones); //Muestra las puntuaciones por orden alfabetico
-void ordenarPredeterminado(tPuntuaciones& puntuaciones);
+void ordenAlfabetico(const tPuntuaciones & puntuaciones); //Muestra y ordena las puntuaciones por orden alfabetico
+void ordenarPredeterminado(tPuntuaciones& puntuaciones); //Ordena segun su puntuacion principalmente y en caso de igualdad en orden alfabetico
 #endif
