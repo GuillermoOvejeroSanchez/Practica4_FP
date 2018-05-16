@@ -1,7 +1,7 @@
 /*
 GRUPO 1B DE FP
 GUILLERMO OVEJERO SANCHEZ
-MARLON JONATHAN CAMPOVERDE M�NDEZ
+MARLON JONATHAN CAMPOVERDE MENDEZ
 */
 
 #include "checkML.h"
@@ -12,17 +12,19 @@ MARLON JONATHAN CAMPOVERDE M�NDEZ
 #include "Dibujo.h"
 #include "Juego.h"
 
-bool menu(tJuego& juego, tPuntuaciones& puntuaciones); //Ejecuta las diferentes opciones del juego
+bool menu(tJuego& juego, tPuntuaciones& puntuaciones, tInfoJugador**& alfabetico); //Ejecuta las diferentes opciones del juego
 
 int main() {
 	srand((unsigned int)time(NULL));
 	tPuntuaciones puntuaciones;
+	tInfoJugador** alfabetico;
 	tJuego juego;
 	bool salir = false;
 
 	if (cargarPuntuaciones(puntuaciones)) {
 		while (salir != true) {
-			salir = menu(juego, puntuaciones);
+			alfabetico = ordenAlfabetico(puntuaciones);
+			salir = menu(juego, puntuaciones, alfabetico);
 		}
 	}
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -30,25 +32,27 @@ int main() {
 }
 
 
-bool menu(tJuego& juego, tPuntuaciones& puntuaciones) {
+bool menu(tJuego& juego, tPuntuaciones& puntuaciones, tInfoJugador**& alfabetico) {
 	char opcion;
 	bool salir = false;
 	std::cout << "1).Jugar\n2).Mostrar puntuaciones\n3).Ver reglas e instrucciones\n\n0).Salir\n";
 	std::cin >> opcion;
 	std::cin.ignore(256, '\n');
+
 	switch (opcion) {
-	case '0': 
+	case '0': //Salir
 		guardarPuntuaciones(puntuaciones); 
-		salir = true; 
-		liberar(puntuaciones);
-		for (int i = 0; i < juego.jugadores; i++) //IS THIS OKAY? Se puede accede a juego.jugadores?
-		{
+		liberar(puntuaciones, alfabetico);
+		for (int i = 0; i < juego.jugadores; i++) //Puedo acceder a juego.jugadores?, o llamo desde otro lado
 			liberar(juego.arrayJugadores[i].mazo);
-		}
+		salir = true;
 		break;
 	case '1':  //Juego
-		if (cargarJuego(juego))
+		if (cargarJuego(juego)) {
 			ejecutarJuego(juego, puntuaciones);
+			ordenarPredeterminado(puntuaciones);
+			alfabetico = ordenAlfabetico(puntuaciones);
+		}
 		else {
 			std::cout << "No se ha podido cargar el tablero escogido" << std::endl;
 			system("pause");
@@ -58,23 +62,18 @@ bool menu(tJuego& juego, tPuntuaciones& puntuaciones) {
 	case '2': //Mostrar Puntuaciones
 		std::cout << "1).Orden por defecto\n2).Orden Alfabetico\n";
 		std::cin >> opcion;
+		std::cin.ignore(256, '\n');
 		std::cout << std::endl;
-		switch (opcion)
-		{
-		case '1':ordenarPredeterminado(puntuaciones);
-			mostrarPuntuaciones(puntuaciones);
-			break;
-		case '2':
-			ordenAlfabetico(puntuaciones);
-			break; //orden alfabetico
+
+		switch (opcion) { //Submenu de puntuaciones
+		case '1': mostrarPuntuaciones(puntuaciones); break;
+		case '2': mostrarAlfabetico(alfabetico, puntuaciones); break;
 		}
-
 		break;
 
-	case '3': //Ver reglas
-		reglas();
-		break;
+	case '3': reglas(); break; //Ver reglas
 	}
+
 	system("cls");
 
 	return salir;

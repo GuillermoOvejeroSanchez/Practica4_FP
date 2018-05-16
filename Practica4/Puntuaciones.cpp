@@ -6,6 +6,9 @@
 
 using namespace std;
 
+
+string toMayus(string texto);
+
 void ordenacionInserccion(tPuntuaciones& puntos, string nombre, int nuevosPuntos, int posicion); //Ordena el ranking por algoritmo de ordenacion
 
 bool cargarPuntuaciones(tPuntuaciones& puntos) {
@@ -131,68 +134,76 @@ void redimensionar(tPuntuaciones& clasificacion) {
 
 }
 
-void liberar(tPuntuaciones & clasificacion) {
-
+void liberar(tPuntuaciones & clasificacion, tInfoJugador**& alfabetico) {
 	delete[] clasificacion.ranking;
+	delete[] alfabetico;
 }
 
 
 void ordenarPredeterminado(tPuntuaciones& puntuaciones) {
-
-	bool intercambiar = true;
 	tInfoJugador aux;
+	string name1, name2;
 
-	int i, j;
-	for (i = 0; i < puntuaciones.contador - 1; i++)   
-		for (j = 0; j < puntuaciones.contador - i - 1; j++) {
-			//Sobrecargar operador < y poner los nombres en mayusculas
-			if (puntuaciones.ranking[j].nombre > puntuaciones.ranking[j + 1].nombre) {
+	//Sobrecargar operador <
+	//Ordena alfabeticamente
+	for (int i = 0; i < puntuaciones.contador - 1; i++)   
+		for (int j = 0; j < puntuaciones.contador - i - 1; j++) {
+			name1 = toMayus(puntuaciones.ranking[j].nombre);
+			name2 = toMayus(puntuaciones.ranking[j + 1].nombre);
+			if (name1 > name2) {
 				aux = puntuaciones.ranking[j];
 				puntuaciones.ranking[j] = puntuaciones.ranking[j + 1];
 				puntuaciones.ranking[j + 1] = aux;
-				intercambiar = true;
 			}
 		}
 
-	for (i = 0; i < puntuaciones.contador - 1; i++)   
-		for (j = 0; j < puntuaciones.contador - i - 1; j++) {
+	//Ordena por puntuacion
+	for (int i = 0; i < puntuaciones.contador - 1; i++)   
+		for (int j = 0; j < puntuaciones.contador - i - 1; j++) {
 			if (puntuaciones.ranking[j].puntuacion < puntuaciones.ranking[j + 1].puntuacion) {
 				aux = puntuaciones.ranking[j];
 				puntuaciones.ranking[j] = puntuaciones.ranking[j + 1];
 				puntuaciones.ranking[j + 1] = aux;
-				intercambiar = true;
 			}
 		}
 }
-void ordenAlfabetico(const tPuntuaciones & puntuaciones) {
-	bool intercambiar = true;
-	//int i, j;
-
+tInfoJugador** ordenAlfabetico(const tPuntuaciones & puntuaciones) {
+	//Se crea un array de punteros
 	tInfoJugador** alfabetico;
 	tInfoJugador* aux;
-
+	string name1, name2;
 	alfabetico = new tInfoJugador*[puntuaciones.tam];
 
+	//Copia de punteros
 	for (int i = 0; i < puntuaciones.contador; i++)
 	{
 		alfabetico[i] = &puntuaciones.ranking[i];
 	}
-
+	//Ordenacion de punteros
 	for (int i = 0; i < puntuaciones.contador - 1; i++)
 		for (int j = 0; j < puntuaciones.contador - i - 1; j++) {
-			if (alfabetico[j]->nombre > alfabetico[j + 1]->nombre) {
+			name1 = toMayus(alfabetico[j]->nombre);
+			name2 = toMayus(alfabetico[j + 1]->nombre);
+			if (name1 > name2) {
 				aux = alfabetico[j];
 				alfabetico[j] = alfabetico[j + 1];
 				alfabetico[j + 1] = aux;
-				intercambiar = true;
 			}
 		}
 
-	
+	return alfabetico;
+}
+
+void mostrarAlfabetico(tInfoJugador**& alfabetico,const tPuntuaciones& puntuaciones) {
 	for (int i = 0; i < puntuaciones.contador; i++)
-	{
 		cout << alfabetico[i]->nombre << " " << alfabetico[i]->puntuacion << endl;
-	}
-	delete[] alfabetico;
 	system("pause");
+}
+
+string toMayus(string texto) {
+	string textoMayus = texto;
+	for (int i = 0; i < texto.length(); i++)
+		textoMayus[i] = toupper(texto[i]);
+
+	return textoMayus;
 }

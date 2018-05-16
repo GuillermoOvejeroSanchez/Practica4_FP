@@ -6,10 +6,13 @@ G 8
 I 7
 C 6
 B 5
-H 4
 e34 4
+H 4
 3th 3
+aaaaaaaaaaaaaaaaaaaaa 1
 ababa 1
+acacacaca 1
 bababab 1
 cacaca 1
+Paco 1
 zazazazazaz 1
