@@ -134,9 +134,8 @@ void redimensionar(tPuntuaciones& clasificacion) {
 
 }
 
-void liberar(tPuntuaciones & clasificacion, tInfoJugador**& alfabetico) {
+void liberar(tPuntuaciones & clasificacion) {
 	delete[] clasificacion.ranking;
-	delete[] alfabetico;
 }
 
 
@@ -167,7 +166,7 @@ void ordenarPredeterminado(tPuntuaciones& puntuaciones) {
 			}
 		}
 }
-tInfoJugador** ordenAlfabetico(const tPuntuaciones & puntuaciones) {
+void ordenAlfabetico(const tPuntuaciones & puntuaciones) {
 	//Se crea un array de punteros
 	tInfoJugador** alfabetico;
 	tInfoJugador* aux;
@@ -190,14 +189,11 @@ tInfoJugador** ordenAlfabetico(const tPuntuaciones & puntuaciones) {
 				alfabetico[j + 1] = aux;
 			}
 		}
-
-	return alfabetico;
-}
-
-void mostrarAlfabetico(tInfoJugador**& alfabetico,const tPuntuaciones& puntuaciones) {
 	for (int i = 0; i < puntuaciones.contador; i++)
 		cout << alfabetico[i]->nombre << " " << alfabetico[i]->puntuacion << endl;
 	system("pause");
+
+	delete[] alfabetico;
 }
 
 string toMayus(string texto) {

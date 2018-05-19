@@ -246,10 +246,8 @@ bool esFinDePartida(tJuego& juego) {
 			while ((opcion != 'Y' && opcion != 'y') && (opcion != 'N' && opcion != 'n'))
 				std::cin >> opcion;
 
-			if (opcion == 'N' || opcion == 'n') {
+			if (opcion == 'N' || opcion == 'n')
 				juego.fin = true;
-				
-			}
 		}
 	return juego.fin;
 }

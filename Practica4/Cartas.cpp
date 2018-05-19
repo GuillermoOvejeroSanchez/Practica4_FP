@@ -37,7 +37,7 @@ void crearMazo(tMazo& mazo) { //Crea un mazo sin barajear
 	for (int i = 0; i < MAX_CARTAS; i++)
 		mazo.cartas[i] = new tCarta;
 
-	//A�ade las cartas al mazo
+	//Incluye las cartas al mazo
 	for (int i = 0; i < MAX_AVANZAR; i++, mazo.numCartas++)
 		*mazo.cartas[mazo.numCartas] = AVANZAR;
 
@@ -51,8 +51,12 @@ void crearMazo(tMazo& mazo) { //Crea un mazo sin barajear
 		*mazo.cartas[mazo.numCartas] = LASER;
 }
 
-void liberar(tMazo & mazo) {
-	delete[] mazo.cartas;
+void liberar(tMazo &mazo) {
+	for (int i = 0; i < MAX_CARTAS; i++)
+	{
+		delete mazo.cartas[i];
+		mazo.cartas[i] = nullptr;
+	}
 	mazo.inicio= 0;
 	mazo.numCartas = 0;
 }
